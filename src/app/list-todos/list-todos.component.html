@@ -17,10 +17,14 @@
                     <tr *ngFor="let todo of todos">
                         <td>{{todo.description}}</td>
                         <td>{{todo.done}}</td>
-                        <td>{{todo.targetDate | date | uppercase}}</td>
+                        <td>{{todo.targetDate | date : 'yyyy-MM-dd':'utc' | uppercase}}</td>
                         <td><button (click)="deleteTodo(todo.id)" class="btn btn-danger">Delete</button></td>
                         <td><button (click)="updateTodo(todo.id)" class="btn btn-warning">Update</button></td>
                     </tr>
                 </tbody>
             </table>
+
+            <div class="row">
+                <button (click)="addTodo()" class="btn btn-info">New</button>
+            </div>
         </div>

@@ -1,17 +1,24 @@
 <H1>Todo</H1>
 
 <div class="container">
-    <fieldset class="form-group">
-        <label>Description</label>
-        <input type="text" name="description" [(ngModel)]="todo.description" required="required"  class="form-control">
-    </fieldset>
 
-    <fieldset class="form-group"> 
-        <label>Target date</label>
-        <input type="date" 
-         [ngModel]="todo.targetDate | date:'yyyy-MM-dd' "
-        (ngModelChange)="todo.targetDate = $event" class="form-control" required="required" name="targetDate">
-    </fieldset>
-
-    <button class="btn btn-success" (click)="saveTodo()">Save</button>
+    <!--Handling validation form in front-end side-->
+    <div class="alert alert-warning" *ngIf="targetDate.dirty && description.invalid">Please enter valid values</div>
+    <div class="alert alert-warning" *ngIf="todoForm.dirty && targetDate.invalid">Please enter a valid Date</div>
+    <div class="alert alert-warning" *ngIf="description.dirty && description.invalid">Please enter a valid description</div>
+    <form (ngSubmit)="!todoForm.invalid && saveTodo()" #todoForm="ngForm">
+        <fieldset class="form-group">
+            <label>Description</label>
+            <input type="text" #description="ngModel" name="description" [(ngModel)]="todo.description" 
+            required="required" class="form-control" minlength="5">
+        </fieldset>
+    
+        <fieldset class="form-group">
+            <label>Target date</label>
+            <input type="date" #targetDate="ngModel" [ngModel]="todo.targetDate | date:'yyyy-MM-dd' " (ngModelChange)="todo.targetDate = $event"
+                class="form-control" required="required" name="targetDate">
+        </fieldset>
+    
+        <button class="btn btn-success" type="submit">Save</button>
+    </form>
 </div>
