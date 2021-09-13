@@ -1,0 +1,26 @@
+<h1>My Todo's List</h1>
+
+<div class="container alert alert-success" *ngIf='message' >{{message}}</div>
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Is Completed</th>
+                        <th>Target Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--Binding an object elements from ts Component using ngFor Directive-->
+                    <tr *ngFor="let todo of todos">
+                        <td>{{todo.description}}</td>
+                        <td>{{todo.done}}</td>
+                        <td>{{todo.targetDate | date | uppercase}}</td>
+                        <td><button (click)="deleteTodo(todo.id)" class="btn btn-danger">Delete</button></td>
+                        <td><button (click)="updateTodo(todo.id)" class="btn btn-warning">Update</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
