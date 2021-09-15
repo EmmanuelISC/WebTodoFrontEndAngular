@@ -9,14 +9,20 @@ export class BasicAuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  authenticate(user, password)
+
+
+  getAuthenticatedUser()
   {
-    if(user ==='eelias' && password ==='123')
-    {
-      sessionStorage.setItem('authenticaterUser', user);
-      return true;
-    }
-    return false;
+    return  sessionStorage.getItem('authenticaterUser')
+    
+  }
+
+  getAuthenticatedToken()
+  {
+    //If it brings something from autheticated user
+    if(this.getAuthenticatedUser())
+    return  sessionStorage.getItem('token')
+    
   }
 
   isUserLoggedIn()
@@ -25,9 +31,11 @@ export class BasicAuthenticationService {
     return !(user === null)
   }
 
+
   logout()
   {
     sessionStorage.removeItem('authenticaterUser')
+    sessionStorage.removeItem('token')
   }
 
   executeAuthenticaionService(username, password){
@@ -46,6 +54,7 @@ export class BasicAuthenticationService {
       map(
         data => {
           sessionStorage.setItem('authenticaterUser', username);
+          sessionStorage.setItem('token', basicAuthHeaderString);
           return data;
         }
       )
