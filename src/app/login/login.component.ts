@@ -57,4 +57,22 @@ export class LoginComponent implements OnInit {
    
   }
 
+  handleJWTAuthLogin() {
+
+    console.log('before ' +  this.hardcodedAuthenticationService.isUserLoggedIn());
+    //if(this.username==="eelias" && this.password ==="123")
+    this.basicAuthService.executeJWTAuthenticaionService(this.username, this.password)
+    .subscribe( data =>{
+      console.log(data)
+      this.router.navigate(['welcome', this.username])
+      this.invalidLogin = false
+    },
+    error => {
+      console.log(error)
+      this.invalidLogin = true
+    })
+ 
+   
+  }
+
 }
